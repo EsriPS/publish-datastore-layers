@@ -68,7 +68,7 @@ def resolve_portal(requested) -> str:
     if requested and norm_url(requested) != norm_url(active):
         sys.exit(f"ERROR: ArcGIS Pro is signed in to {active} but --portal is "
                  f"{requested}. Sign in to {requested} in Pro, then re-run.")
-    return active
+    return active.rstrip("/")
 
 
 def clean_connection(sde: str, scratch: str) -> str:
@@ -195,6 +195,7 @@ def main() -> int:
     p.add_argument("--overwrite", action="store_true",
                    help="overwrite existing services instead of skipping them")
     args = p.parse_args()
+    args.scratch = os.path.abspath(args.scratch)  # StageService requires full paths
 
     portal = resolve_portal(args.portal)
     server = args.server or portal
