@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Local configuration and secrets
+config.toml
+.env
+.arcgis_refresh_token
+
+# Database connection files (never commit)
+*.sde
+
+# Run artifacts
+publish_results.json
+*.log
+_spike_scratch/
+_publish_scratch/
