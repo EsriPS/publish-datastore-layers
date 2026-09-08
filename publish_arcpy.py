@@ -220,6 +220,10 @@ def main() -> int:
     results = []
 
     if args.phase in ("stage", "all"):
+        # Start from a clean set so a later --phase publish only sees this batch.
+        for f in os.listdir(sd_dir):
+            if f.endswith((".sd", ".sddraft")):
+                os.remove(os.path.join(sd_dir, f))
         sde = clean_connection(args.sde, args.scratch)
         datasets = enumerate_datasets(sde)
         if args.datasets:
